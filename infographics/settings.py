@@ -9,6 +9,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
 import os
 import dj_database_url
 
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'infographics',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +134,16 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# bootstrap 3 modification for django
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
+BOOTSTRAP3 = {
+    # Label class to use in horizontal forms
+    'horizontal_label_class': 'col-sm-2 control-label',
+
+    # Field class to use in horizontal forms
+    'horizontal_field_class': 'col-md-10',
+}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title_page %}About{% endblock title_page %}
+
+{% block content %}
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>About Infographics</h1>
+<p>This starts off as a personal project in data analysis and presentation.
+    The goal is to create a sandbox for good <em>ideas worth spreading</em>.</p>
+
+<h2 class="ion-clipboard"> Developer notes</h2>
+<p>Currently, a wildcard certificate for <code>*.herokuapp.com</code> is deployed.
+    To properly authenticate the server, use a custom SSL certificate.
+    See <a href="https://devcenter.heroku.com/articles/ssl-endpoint">heroku documenation</a> for details.</p>
+<p>Client-side SSL certificates cannot be used on heroku, see
+    <a href="https://kb.heroku.com/does-heroku-support-client-side-ssl-connections-a-k-a-two-way-authentication">
+        heroku knowledge base</a>.
+    To properly authenticate the client, handle a client-specific certificate or (secure) password inside the app.</p>
+<p>Google map is used to visualize boxes.
+    Embed API key: <code>AIzaSyB4yHzhZQwIBtNf3RUMlkOsMmRjMqbAM60</code>.
+    Javascript API key: <code>AIzaSyBycULX6zbWdd26hRXVxEg2zM_x8cNeZqc</code>.</p>
+
+<h2 class="ion-person-stalker"> Authors</h2>
+<p><a href="mailto:nathanael.wettstein@helbling.ch">WNA</a>. Get in touch.</p>
+
+{% endblock content %}

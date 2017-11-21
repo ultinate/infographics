@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title_page %}Infographics{% endblock title_page %}
+
+{% block content %}
+<h2 class="ion-person-stalker"> Where Helbling Wil lives</h1>
+<p>Zoom into the map and move around to see where we live.</p>
+<div id="map" style="height: 600px; width:100%; margin-top:10px"></div>
+<script>
+  var geocoder;
+  var map;
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(47.3, 8.7);
+    // var latlng = new google.maps.LatLng(46.83779, 8.28087);  // zoom: 8
+    var mapOptions = {
+      zoom: 9,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    image_path = "{% static 'm' %}";
+    // Add a marker clusterer to manage the markers.
+    var markerCluster = new MarkerClusterer(map, [], {imagePath: image_path});
+
+    {% for location in locations %}marker = codeAddress("{{ location }}", "1", "1", markerCluster);{% endfor %}
+  }
+
+  function codeAddress(address, title, id, markerCluster) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            title: title,
+            label: id
+        });
+        markerCluster.addMarker(marker);
+      }
+    });
+  }
+</script>
+<script src="{% static 'markerclusterer.js' %}">
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBycULX6zbWdd26hRXVxEg2zM_x8cNeZqc&callback=initialize">
+</script>
+
+<h2 class="ion-planet"> Center of gravity</h2>
+<img src="{% static 'center.jpg' %}" />
+
+
+<p>For privacy reasons, the city/town is shown only.</p>
+<p>Center of gravity is defined by calculating the arithmetic mean of all lat/long of city/town centers.</p>
+<p>The weight for each employee is <code>1.0</code>.</p>
+
+<h2 class="ion-clipboard"> Debug info</h2>
+{% if data_list %}
+	<p>There are currently {{ data_list|length }} data items.</p>
+    {% for data in data_list %}
+        <pre><b>{{ data.key }}</b>: {{ data.data }}</pre>
+    {% endfor %}
+{% else %}
+    <p>No data available.</p>
+{% endif %}
+
+
+{% endblock content %}
+
+{% block footer_script %}
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+		window.location = $(this).data("href");
+	});
+});
+
+
+{% endblock footer_script%}
