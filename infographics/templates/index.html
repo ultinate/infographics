@@ -6,8 +6,17 @@
 {% block content %}
 <h2 class="ion-person-stalker"> Where Helbling Wil lives</h1>
 <p>Zoom into the map and move around to see where we live.</p>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+       aria-valuemax="100" style="width: 2em; min-width: 2em;">Loading markers ...</div>
+</div>
 <div id="map" style="height: 600px; width:100%; margin-top:10px"></div>
 <script>
+  function sleep(miliseconds) {
+    var currentTime = new Date().getTime();
+    while (currentTime + miliseconds >= new Date().getTime()) { }
+  }
+
   var geocoder;
   var map;
   function initialize() {
@@ -15,7 +24,7 @@
     var latlng = new google.maps.LatLng(47.3, 8.7);
     // var latlng = new google.maps.LatLng(46.83779, 8.28087);  // zoom: 8
     var mapOptions = {
-      zoom: 9,
+      zoom: 8,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -25,7 +34,21 @@
     // Add a marker clusterer to manage the markers.
     var markerCluster = new MarkerClusterer(map, [], {imagePath: image_path});
 
-    {% for location in locations %}marker = codeAddress("{{ location }}", "1", "1", markerCluster);{% endfor %}
+    var max_delay = 0;
+    {% for location in locations %}
+        var delay = 800 * {{ forloop.counter0 }};
+        max_delay = delay;
+        setTimeout(function()
+        {
+            marker = codeAddress("{{ location }}", "H", "H", markerCluster);
+            var value = 100 * {{ forloop.counter0 }} / ({{ forloop.revcounter0 }} + {{ forloop.counter0 }});
+            $('.progress-bar').css('width', value+'%').attr('aria-valuenow', value);
+        }, delay);
+    {% endfor %}
+    setTimeout(function()
+    {
+        $('.progress-bar').css('width', '100%').attr('aria-valuenow', 100);
+    }, max_delay);
   }
 
   function codeAddress(address, title, id, markerCluster) {
@@ -38,6 +61,9 @@
             label: id
         });
         markerCluster.addMarker(marker);
+      }
+      else {
+        console.log('status not ok: ' + status);
       }
     });
   }
