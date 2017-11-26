@@ -1,12 +1,9 @@
 import re
 import logging
-import httplib2
-import urllib.parse
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.contrib import messages
-from django.urls import reverse
 
 import geocoder.models
 from .models import Data
