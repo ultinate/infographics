@@ -4,7 +4,7 @@
 {% block title_page %}Infographics{% endblock title_page %}
 
 {% block content %}
-<h1 class="ion-person-stalker"> Where Helbling Wil lives</h1>
+<h1 class="ion-person-stalker"> Where HTKW lives</h1>
 <p>Zoom into the map and move around to see where we live.</p>
 <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
@@ -64,6 +64,8 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBycULX6zbWdd26hRXVxEg2zM_x8cNeZqc&amp;callback=initialize_center">
 </script>
 
+<p>For privacy reasons, no higher resolution than city/town is shown.</p>
+
 <h2 class="ion-planet"> Center of gravity</h2>
 <div id="map_center" style="height: 600px; width:100%; margin-top:10px"></div>
 <script>
@@ -89,8 +91,9 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBycULX6zbWdd26hRXVxEg2zM_
   }
 </script>
 
-<p>For privacy reasons, the city/town is shown only.</p>
 <p>Center of gravity is defined by calculating the arithmetic mean of all lat/long of city/town centers.</p>
 <p>The weight for each employee is <code>1.0</code>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 {% endblock content %}
