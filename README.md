@@ -1,7 +1,9 @@
 Infographics
 ============
 
-This is a collection of great little infographics.
+Visualization of random facts about the people inside our organization.
+
+Based on heroku Django template.
 
 
 Contributors
