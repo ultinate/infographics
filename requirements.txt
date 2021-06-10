@@ -1,6 +1,6 @@
 appdirs==1.4.3
 dj-database-url==0.4.1
-Django==1.11.1
+Django==2.2.24
 django-bootstrap3==8.2.3
 gunicorn==19.6.0
 image==1.5.5
